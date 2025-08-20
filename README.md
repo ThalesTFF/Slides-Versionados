@@ -1,61 +1,74 @@
 # Slides-Versionados
 Cada commit representa uma versão de um slideshow, cada um mais avançado que o outro.
 
-V2 slider com timer e reposionamento dinamico
+V3 Um slider infinito automático baseado em um timer, mas que agora também permite navegação manual
+com botões prev e next.
 
-    Um slider simples de movimento automatico baseado em um timer que 
-    ao passar certo tempo, move o slider track para a esquerda
-    com base na largura do slide atual
+    Quando o usuário interage, o timer é resetado para manter o fluxo contínuo.
 
-    1° identificar o primeiro slide
+    1. Identificação e Timer
 
-    2° Capturar a largura do primeiro slide
+        O que é feito:
 
-    3° Mover o slider-track para a esquerda com base na largura
-    do primeiro slide, assim acultando-o completamente
+            Selecionamos o slider-track e os botões prev e next.
+            Criamos um setInterval que chama automaticamente nextSlide() a cada 6 segundos.
 
-    4° Após isso , criamos um breve intervalo de tempo para evitar bugs
-    e reposicionamos o primeiro slide para o final do slider-track
-
-    6° Após isso realizamos uma sequencia de ações para reorganização do 
-    DOM e reset de margem
-
-        desativamos a transição suave para que ao resetarmos a margem
-        n se crie um efeito gradual e simplesmente pareça que não aconteceu nada
-        visto que no JS as ações são feitas em ordem
-
-        Depois forçamos o reflow já que em alguns navegadores podem tentar otimizar os calculos
-        e ações do JS assim "pulando" etapas necessarias para evitar glitchs e bugs.
+        Por quê:
+            Isso garante que o slider continue rodando sozinho, mas permita pausa/reset ao interagir.
 
 
-            No navegador, mudanças no layout (como margin, posição, tamanho) nem sempre são aplicadas imediatamente. O motor de renderização acumula essas alterações e só atualiza a tela quando for realmente necessário, para economizar desempenho.
+    2. Reset do Timer
 
-            👉 Quando usamos:
+        O que é feito:
+            Ao clicar em qualquer botão, o timer é limpo e reiniciado.
 
-                void track.offsetWidth;
-
-
-                ou seja, acessamos uma propriedade que depende do layout real, o navegador é forçado a calcular de imediato o estilo e o layout atualizados (reflow).
-
-            Isso garante que a linha:
-
-            track.style.transition = 'all linear 0.5s';
+        Por quê:
+            Evita múltiplos intervals acumulados e mantém o controle único do fluxo automático.
 
 
-            seja aplicada somente depois que o reset já foi efetivado, evitando que o navegador “junte” as operações e crie glitches (como animação indevida no reset da margem).
+    3. Função nextSlide()
 
-            📌 Resumindo:
+        Passos:
 
-                Reflow = recalcular as posições/tamanhos de elementos na página.
+            Captura o primeiro slide e sua largura.
 
-                Usar track.offsetWidth = obrigar o navegador a aplicar as mudanças naquele instante.
+            Move o slider-track para a esquerda com margin-left: -larguraDoSlide.
 
-                Serve para garantir que o reset da margem seja “instantâneo”, antes de reativar a transição.
+            Após o fim da transição:
 
-        Após isso reativamos a transição suave
-        
+                Move o primeiro slide para o final (append).
 
-    track.style.transition = 'none';              // Desativa a transição suave
-    track.style.marginLeft = '0px';               // Volta pra posição inicial
-    void track.offsetWidth;                       // Força reflow
-    track.style.transition = 'all linear 0.5s';   // Reativa animação
+                Desativa a transição (transition: none).
+
+                Reseta a margem para 0px.
+
+                Força o reflow (void track.offsetWidth).
+
+                Reativa a transição (transition: all linear 0.5s).
+
+        Por quê:
+
+            Esse ciclo cria a ilusão de movimento infinito para a direita (próximo slide).
+
+
+    4. Função prevSlide()
+
+        Passos:
+
+            Captura o último slide e sua largura.
+
+            Coloca o último slide no início (prepend).
+
+            Sem transição, desloca o track para margin-left: -larguraDoSlide (como se já estivesse um passo à esquerda).
+
+                OBS: embora o JS realize os codigos em ordem , certas ações são sincronas e são realizadas 
+                quase que instantaneamente então o slide ao mesmo tempo que é posicionado no começo 
+                a margem tbm é mudada sem efeito visual aparente por estar sem a animação
+
+            Força o reflow (void track.offsetWidth).
+
+            Com transição ativa, anima o margin-left de -larguraDoSlide para 0.
+
+        Por quê:
+
+            Cria a ilusão de que voltamos um slide para a esquerda.

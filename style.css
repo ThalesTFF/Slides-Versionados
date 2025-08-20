@@ -6,10 +6,11 @@
 }
 
 .slider{
-    height: 300px;
+    height: 100dvh;
     width: 100dvw;
     overflow: hidden;
     background-color: red;
+    position: relative;
 }
 .slider-track{
     display: flex;
@@ -20,7 +21,7 @@
     transition: all linear 0.5s;
 }
 .slide{
-    width: 100dvw;
+    min-width: 100dvw;
     height: 100%;
     background-color: green;
 }
@@ -32,4 +33,27 @@
 }
 .s3{
     background-color: rgb(3, 114, 114);
+}
+.s4{
+    background-color: rgb(228, 99, 40)
+}
+.s5{
+    background-color: rgb(217, 255, 81);
+}
+
+.slide_controls{
+    position: absolute;
+    top: 45%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+.next, .prev{
+    padding: 10px 20px;
+    font-size: 40px;
+    cursor: pointer;
+    font-weight: 800;
+    border: 1px solid #000;
+    border-radius: 50%;
 }
