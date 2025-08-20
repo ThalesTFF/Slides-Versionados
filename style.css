@@ -6,7 +6,7 @@
 }
 
 .slider{
-    height: 30px;
+    height: 300px;
     width: 100dvw;
     overflow: hidden;
     background-color: red;
@@ -18,19 +18,18 @@
     background-color: blue;
     align-items: center;
     transition: all linear 0.5s;
-    animation: moveslider 15s linear infinite;
 }
 .slide{
-    width: 320px;
+    width: 100dvw;
     height: 100%;
     background-color: green;
 }
-
-@keyframes moveslider {
-    0%{
-        transform: translateX(0);
-    }
-    100%{
-        transform: translateX(-50%);
-    }
+.s1{
+    background-color: rgb(114, 3, 86);
+}
+.s2{
+    background-color: rgb(51, 3, 114);
+}
+.s3{
+    background-color: rgb(3, 114, 114);
 }
