@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!--Logica por trás de um slider
+    
+        1. Estrutura do HTML e Conceito de Track
+
+         O que é feito: 
+         
+            Criar um container fixo (slider-wrapper) 
+            um trilho deslizante (slider-track) que contém os slides.
+
+            🎯 Por quê?
+
+            O wrapper delimita a área visível.
+
+            O track é o que se move horizontalmente, simulando o deslizamento dos slides.
+
+
+        2. Layout com Flexbox e Overflow
+
+            O que é feito: 
+            
+                Definir slider-track com display: flex e overflow: hidden no slider.
+
+            🎯 Por quê?
+
+            O flex posiciona os slides lado a lado.
+
+            O overflow: hidden garante que apenas alguns slides fiquem visíveis 
+            e os outros “saiam” da tela.
+
+        3. Movimento Contínuo
+
+            O que é feito: Aplicar uma animação (CSS ou JS) que move o slider-track 
+            para a esquerda com transform: translateX.
+
+            🎯 Por quê?
+
+            Simula o movimento automático do carrossel sem depender de cliques.
+
+            Cria a sensação de fluxo contínuo, fundamental pro efeito infinito.
+
+
+    
+    -->
+    
+    <div class="slider">
+        <div class="slider-track">
+            <div class="slide">Slide 1</div>
+            <div class="slide">slide 2</div>
+            <div class="slide">slide 3</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

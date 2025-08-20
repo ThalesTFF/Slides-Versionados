@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+}
+
+.slider{
+    height: 30px;
+    width: 100dvw;
+    overflow: hidden;
+    background-color: red;
+}
+.slider-track{
+    display: flex;
+    width: max-content;
+    height: inherit;
+    background-color: blue;
+    align-items: center;
+    transition: all linear 0.5s;
+    animation: moveslider 15s linear infinite;
+}
+.slide{
+    width: 320px;
+    height: 100%;
+    background-color: green;
+}
+
+@keyframes moveslider {
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-50%);
+    }
+}
